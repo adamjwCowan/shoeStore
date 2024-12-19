@@ -1,0 +1,22 @@
+# See https://git-scm.com/docs/gitattributes for more about git attribute files.
+
+# Mark the database schema as having been generated.
+db/schema.rb linguist-generated
+
+# Mark any vendored files as having been vendored.
+vendor/* linguist-vendored
+config/credentials/*.yml.enc diff=rails_credentials
+config/credentials.yml.enc diff=rails_credentials
+
+# Enforce LF line endings for all text files (default Git behavior)
+   * text=auto eol=lf
+
+   # Treat binary files as binary, no text conversion
+   *.jpg binary
+   *.jpeg binary
+   *.png binary
+   *.gif binary
+   *.ico binary
+   *.pdf binary
+   *.doc binary
+   *.docx binary

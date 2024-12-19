@@ -1,0 +1,90 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  # RuboCop Job (Code Quality Linter)
+  rubocop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run RuboCop
+        run: bundle exec rubocop
+
+  # Brakeman (Security Scanner)
+  brakeman:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Run Brakeman
+        run: bin/brakeman --no-pager
+
+  # Test Suite Job (Unit, Integration, and System Tests)
+  tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Install requirements specific to Rails system tests
+      - name: Install packages for system tests
+        run: sudo apt-get update && sudo apt-get install -y google-chrome-stable curl libjemalloc2 libvips sqlite3
+
+      - name: Checkout the code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Install gem dependencies
+        run: bundle install
+
+      # Copy database.yml specific for CI
+      - name: Configure SQLite database for testing
+        run: cp config/database.yml.ci config/database.yml
+
+      # Prepare the test database
+      - name: Set up database and run migrations
+        run: bin/rails db:test:prepare
+
+      - name: Run test suite (RSpec)
+        env:
+          RAILS_ENV: test
+        run: bundle exec rspec
+
+      # Archive screenshots of failing system tests
+      - name: Archive failed test screenshots
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: screenshots
+          path: tmp/screenshots
+defaults:
+permissions:
+env:
+run-name:
+concurrency:
