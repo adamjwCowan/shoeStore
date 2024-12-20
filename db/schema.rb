@@ -12,12 +12,11 @@
 
 ActiveRecord::Schema[7.2].define(version: 2024_12_19_201444) do
   create_table "shoes", force: :cascade do |t|
+    t.integer "shoe_id"
     t.string "name"
     t.string "brand"
     t.integer "size"
     t.decimal "price"
     t.integer "stock"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 end
