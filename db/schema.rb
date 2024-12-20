@@ -13,7 +13,7 @@ It's strongly recommended that you check this file into the version control syst
 
 ActiveRecord::Schema[7.2].define(version: 2024_12_19_201444) do
   create_table "shoes", force: :cascade do |t|
-    t.integer "shoe_id"
+    t.integer "id"
     t.string "name"
     t.string "brand"
     t.integer "size"

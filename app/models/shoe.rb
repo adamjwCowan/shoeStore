@@ -1,4 +1,5 @@
 class Shoe < ApplicationRecord
+  validates :id, presence: true, uniqueness: true
   validates :name, presence: true, uniqueness: true
   validates :brand, presence: true
   validates :size, numericality: { only_integer: true, greater_than: 0 }
