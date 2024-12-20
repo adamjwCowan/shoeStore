@@ -6,7 +6,7 @@
   { name: "Gel-Nimbus 25", brand: "Asics", size: 9, price: 160.00, stock: 20 },
   { name: "574 Core", brand: "New Balance", size: 10, price: 90.00, stock: 35 },
   { name: "Old Skool", brand: "Vans", size: 9, price: 70.00, stock: 45 },
-  { name: "Suede Classic XXI", brand: "Puma", size: 8.5, price: 75.00, stock: 25 },
+  { name: "Suede Classic XXI", brand: "Puma", size: 8, price: 75.00, stock: 25 },
   { name: "Air Max 90", brand: "Nike", size: 11, price: 130.00, stock: 30 },
   { name: "NMD_R1", brand: "Adidas", size: 10, price: 140.00, stock: 40 },
   { name: "Club C 85", brand: "Reebok", size: 9, price: 85.00, stock: 35 },
